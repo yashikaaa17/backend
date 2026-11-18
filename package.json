@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NewSmoke38/intro-to-backend.git"
+    "url": "git+https://github.com/samridh25cse/Backend-Project-.git"
   },
   "author": "Shivani",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/NewSmoke38/intro-to-backend/issues"
+    "url": "https://github.com/samridh25cse/Backend-Project-/issues"
   },
-  "homepage": "https://github.com/NewSmoke38/intro-to-backend#readme",
+  "homepage": "https://github.com/samridh25cse/Backend-Project-#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.2",

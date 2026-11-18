@@ -8,44 +8,41 @@ const userSchema = new Schema(
             required: true,
             unique: true,
             lowercase: true,
-            trim: true,
-            minLength: 1,
-            maxLength: 30
+            trim: true
         },
-
-        password: {
-            type: String,
-            required: true,
-            minLength: 6,
-            maxLength: 50
-        },
-
         email: {
             type: String,
             required: true,
             unique: true,
             lowercase: true,
             trim: true
+        },
+        password: {
+            type: String,
+            required: true
         }
-
     },
-
     {
         timestamps: true
     }
-)
+);
 
-// before saving any password we need to hash it
-userSchema.pre("save", async function (next) {
-    if (!this.isModified("password")) return next();
+userSchema.pre("save", async function () {
+    if (!this.isModified("password")) {
+        return;
+    }
     this.password = await bcrypt.hash(this.password, 10);
-
-    next();
 });
 
-// compare passwords
-userSchema.methods.comparePassword = async function (password) {
-    return await bcrypt.compare(password, this.password)
-}
+userSchema.methods.comparePassword = async function (candidatePassword) {
+    return await bcrypt.compare(candidatePassword, this.password);
+};
 
-export const User = mongoose.model("User", userSchema)
+userSchema.set("toJSON", {
+    transform: (doc, ret) => {
+        delete ret.password;
+        return ret;
+    }
+});
+
+export const User = mongoose.model("User", userSchema);
